@@ -6,6 +6,7 @@ build/
 current/
 
 #IDEA IntelliJ files
+out/
 *.iml
 *.ipr
 *.iws
