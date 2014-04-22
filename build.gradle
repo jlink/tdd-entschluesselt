@@ -1,0 +1,34 @@
+apply plugin: 'groovy'
+apply plugin: 'idea'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'org.codehaus.groovy:groovy-all:2.3.0-beta-2'
+    testCompile 'junit:junit:4.11'
+}
+
+idea.project.ipr {
+    withXml { provider ->
+        provider.node.component.find { it.@name == 'VcsDirectoryMappings' }.mapping.@vcs = 'Git'
+    }
+}
+
+sourceSets {
+    main {
+        groovy {
+            srcDirs = ['current/src/main']
+        }
+    }
+    test {
+        groovy {
+            srcDirs = ['current/src/test']
+        }
+    }
+}
+
+jar {
+    version = '0.1'
+}

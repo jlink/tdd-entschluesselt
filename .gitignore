@@ -1,0 +1,11 @@
+#Gradle dirs
+.gradle
+build/
+
+#The current scenario
+current/
+
+#IDEA IntelliJ files
+*.iml
+*.ipr
+*.iws
