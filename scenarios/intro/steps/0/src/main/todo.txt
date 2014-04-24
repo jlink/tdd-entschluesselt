@@ -1,0 +1,5 @@
++ Ein Codebook hat eine Menge von Wort-Code-Zuordnungen.
+- Codierung eines Textes: Ersetze alle Vorkommen eines aufgeführten Wortes durch den zugeordneten Code.
+- Im Codebook darf der gleiche Code nicht unterschiedlichen Worten zugeordnet werden.
+- Falls ein Code im Klartext auftaucht, soll die Codierung mit Fehlermeldung abgebrochen werden.
+- Mehrere Codes für gleiches Wort: Benutze die Codes alternierend.
