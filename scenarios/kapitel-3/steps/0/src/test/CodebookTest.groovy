@@ -5,7 +5,7 @@ import org.junit.Test
 class CodebookTest {
     @Test
     void createCodebookWithSomeMappings() {
-        def codebook = new Codebook('word1': 'code1', 'word2': 'code2')
+        def codebook = new KeyCombinations('word1': 'code1', 'word2': 'code2')
         assert codebook.size() == 2
         assert codebook.codeFor('word1') == 'code1'
         assert codebook.codeFor('word2') == 'code2'
