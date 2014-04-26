@@ -4,6 +4,7 @@ build/
 
 #The current scenario
 current/
+.current
 
 #IDEA IntelliJ files
 out/
