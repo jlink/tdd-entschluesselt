@@ -21,14 +21,42 @@ switch(command.toLowerCase()) {
     case "setcurrent":
         setCurrent(cwd, args)
         return
+    case "p":
+    case "pc":
+    case "pullCurrent":
+        pullCurrent(cwd, args)
+        return
     default:
         println("Command '$command' is unknown.")
+}
+
+def pullCurrent(File cwd, args) {
+    if (args.size() > 0)
+        setCurrent(cwd, args)
+
+    def currentScenario = currentScenarioAndStep(cwd)
+    def scenarioName = currentScenario.scenario
+    File scenariosDir = scenariosDir(cwd)
+    File scenarioDir = new File(scenariosDir, scenarioName)
+    File stepsDir = stepsDir(scenarioDir)
+    def stepToPull = currentScenario.step
+    File stepToPullDir = new File(stepsDir, stepToPull)
+    if(!stepToPullDir.exists()) {
+        println("Step '$scenarioName:$stepToPull' does not exist in $stepToPullDir.canonicalPath.")
+        return
+    }
+
+    new AntBuilder().copy(todir: currentDir(cwd)) {
+        fileset(dir: stepToPullDir)
+    }
+
 }
 
 def setCurrent(File cwd, args) {
     def scenarioName = args[0]
     def step = args[1] ?: "0"
     writeCurrentScenario(cwd, scenarioName, step)
+    println("Current scenario set to $scenarioName:$step")
 }
 
 def pushStep(File cwd, args) {
@@ -55,11 +83,15 @@ def pushStep(File cwd, args) {
         stepToPushDir.mkdir()
     }
     new AntBuilder().copy(todir: stepToPushDir) {
-        fileset(dir: new File(cwd, "current"))
+        fileset(dir: currentDir(cwd))
     }
     String nextStep = stepToPush.toInteger() + 1
     writeCurrentScenario(cwd, scenarioName, nextStep)
     println("Pushed current files to '$scenarioName' in $scenariosDir.canonicalPath.\"")
+}
+
+private File currentDir(File cwd) {
+    new File(cwd, "current")
 }
 
 def newScenario(File cwd, args) {

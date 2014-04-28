@@ -10,6 +10,6 @@ class ReplacementCipher {
     String encrypt(String clearText) {
         if (clearText.isEmpty())
             return ''
-        return replacements.get(clearText[0])
+        return replacements.get('a')
     }
 }
