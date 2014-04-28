@@ -13,27 +13,72 @@ switch(command.toLowerCase()) {
     case "newscenario":
         newScenario(cwd, args)
         return
+    case "ps":
+    case "pushstep":
+        pushStep(cwd, args)
+        return
+    case "sc":
+    case "setcurrent":
+        setCurrent(cwd, args)
+        return
     default:
         println("Command '$command' is unknown.")
 }
 
+def setCurrent(File cwd, args) {
+    def scenarioName = args[0]
+    def step = args[1] ?: "0"
+    writeCurrentScenario(cwd, scenarioName, step)
+}
+
+def pushStep(File cwd, args) {
+    def currentScenario = currentScenarioAndStep(cwd)
+    def scenarioName = currentScenario.scenario
+    File scenariosDir = scenariosDir(cwd)
+    File scenarioDir = new File(scenariosDir, scenarioName)
+    if(!scenarioDir.exists()) {
+        println("Scenario '$scenarioName' does not exist in $scenariosDir.canonicalPath.")
+        return
+    }
+    File stepsDir = stepsDir(scenarioDir)
+    def stepToPush = currentScenario.step
+    boolean forceOverwrite = false
+    if (args[0]) {
+        stepToPush = args[0]
+        forceOverwrite = true
+    }
+    File stepToPushDir = new File(stepsDir, stepToPush)
+    if (stepToPushDir.exists() && !forceOverwrite) {
+        println("Use explicit step name to overwrite $stepToPushDir.canonicalPath")
+        return
+    } else {
+        stepToPushDir.mkdir()
+    }
+    new AntBuilder().copy(todir: stepToPushDir) {
+        fileset(dir: new File(cwd, "current"))
+    }
+    String nextStep = stepToPush.toInteger() + 1
+    writeCurrentScenario(cwd, scenarioName, nextStep)
+    println("Pushed current files to '$scenarioName' in $scenariosDir.canonicalPath.\"")
+}
+
 def newScenario(File cwd, args) {
+    def scenarioName = args[0]
     File scenariosDir = scenariosDir(cwd)
     if(!scenariosDir.isDirectory()) {
         println("Scenarios dir $scenariosDir.canonicalPath does not exist.")
         return
     }
-    def scenarioName = args[0]
     File scenarioDir = new File(scenariosDir, scenarioName)
     if(scenarioDir.exists()) {
         println("Scenario '$scenarioName' already exist in $scenariosDir.canonicalPath.")
         return
     }
     File stepsDir = stepsDir(scenarioDir)
+    stepsDir.mkdirs()
     def initialStep = "0"
-    File firstStepDir = new File(stepsDir, initialStep)
-    firstStepDir.mkdirs()
     writeCurrentScenario(cwd, scenarioName, initialStep)
+    println("Created scenario '$scenarioName' in $scenariosDir.canonicalPath.\"")
 }
 
 def listScenarios(File cwd, args) {
@@ -67,8 +112,9 @@ private File scenariosDir(File cwd) {
 
 def listAScenario(scenario) {
     def isCurrentMarker = scenario.isCurrent ? "> " : "  "
-    def currentStep = scenario.currentStep ? ":$scenario.currentStep" : ""
-    println "$isCurrentMarker$scenario.name$currentStep  $scenario.steps"
+    def currentStep = (scenario.currentStep ? ":$scenario.currentStep" : "").padRight(3)
+    print "$isCurrentMarker$scenario.name".padRight(30)
+    println "$currentStep $scenario.steps"
 }
 
 def currentScenarioAndStep(File cwd) {
