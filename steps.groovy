@@ -4,7 +4,7 @@ String command = this.args.first()
 def args = this.args.size() == 1 ? [] : this.args[1..-1]
 def cwd = new File("./")
 
-switch(command.toLowerCase()) {
+switch (command.toLowerCase()) {
     case "ls":
     case "listscenarios":
         listScenarios(cwd, args)
@@ -41,14 +41,20 @@ def pullCurrent(File cwd, args) {
     File stepsDir = stepsDir(scenarioDir)
     def stepToPull = currentScenario.step
     File stepToPullDir = new File(stepsDir, stepToPull)
-    if(!stepToPullDir.exists()) {
+    if (!stepToPullDir.exists()) {
         println("Step '$scenarioName:$stepToPull' does not exist in $stepToPullDir.canonicalPath.")
         return
     }
+    copyOver(stepToPullDir, currentDir(cwd))
+}
 
-    new AntBuilder().copy(todir: currentDir(cwd)) {
-        fileset(dir: stepToPullDir)
+private copyOver(File from, File to) {
+    to.eachDir { it.deleteDir() };
+    to.eachFile { it.delete() }
+    new AntBuilder().copy(todir: to) {
+        fileset(dir: from)
     }
+
 
 }
 
@@ -64,7 +70,7 @@ def pushStep(File cwd, args) {
     def scenarioName = currentScenario.scenario
     File scenariosDir = scenariosDir(cwd)
     File scenarioDir = new File(scenariosDir, scenarioName)
-    if(!scenarioDir.exists()) {
+    if (!scenarioDir.exists()) {
         println("Scenario '$scenarioName' does not exist in $scenariosDir.canonicalPath.")
         return
     }
@@ -82,11 +88,12 @@ def pushStep(File cwd, args) {
     } else {
         stepToPushDir.mkdir()
     }
-    new AntBuilder().copy(todir: stepToPushDir) {
-        fileset(dir: currentDir(cwd))
+    copyOver(currentDir(cwd), stepToPushDir)
+
+    if (!forceOverwrite) {
+        String nextStep = stepToPush.toInteger() + 1
+        writeCurrentScenario(cwd, scenarioName, nextStep)
     }
-    String nextStep = stepToPush.toInteger() + 1
-    writeCurrentScenario(cwd, scenarioName, nextStep)
     println("Pushed current files to '$scenarioName' in $scenariosDir.canonicalPath.\"")
 }
 
@@ -97,12 +104,12 @@ private File currentDir(File cwd) {
 def newScenario(File cwd, args) {
     def scenarioName = args[0]
     File scenariosDir = scenariosDir(cwd)
-    if(!scenariosDir.isDirectory()) {
+    if (!scenariosDir.isDirectory()) {
         println("Scenarios dir $scenariosDir.canonicalPath does not exist.")
         return
     }
     File scenarioDir = new File(scenariosDir, scenarioName)
-    if(scenarioDir.exists()) {
+    if (scenarioDir.exists()) {
         println("Scenario '$scenarioName' already exist in $scenariosDir.canonicalPath.")
         return
     }
@@ -115,23 +122,23 @@ def newScenario(File cwd, args) {
 
 def listScenarios(File cwd, args) {
     File scenariosDir = scenariosDir(cwd)
-    if(!scenariosDir.isDirectory()) {
+    if (!scenariosDir.isDirectory()) {
         println("Scenario dir $scenariosDir.canonicalPath does not exist.")
         return
     }
     def nameFilter = args[0] ?: ""
-    def scenariosDirs = scenariosDir.listFiles({File file -> file.isDirectory() && (file.name =~ nameFilter)} as FileFilter)
-    def allScenarios = scenariosDirs.collect {File file ->
+    def scenariosDirs = scenariosDir.listFiles({ File file -> file.isDirectory() && (file.name =~ nameFilter) } as FileFilter)
+    def allScenarios = scenariosDirs.collect { File file ->
         def name = file.name
         def scenario = [name: name]
         def current = currentScenarioAndStep(cwd)
-        scenario.steps = stepsDir(file).list().sort {it.toInteger()}
+        scenario.steps = stepsDir(file).list().sort { it.toInteger() }
         scenario.isCurrent = (current.scenario == name)
         if (scenario.isCurrent && current.step)
             scenario.currentStep = current.step
         return scenario
     }
-    allScenarios.each {listAScenario(it)}
+    allScenarios.each { listAScenario(it) }
 }
 
 private File stepsDir(File scenarioDir) {
