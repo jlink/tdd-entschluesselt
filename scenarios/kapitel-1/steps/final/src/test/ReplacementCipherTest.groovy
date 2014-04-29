@@ -24,9 +24,4 @@ class ReplacementCipherTest {
         assert cipher.encrypt('babbaa') == 'YXYYXX'
     }
 
-    @Test
-    void leaveUnmappedCharactersUnchanged() {
-        def cipher = new ReplacementCipher(['a': 'A', 'b': 'B'])
-        assert cipher.encrypt('ac db') == 'Ac dB'
-    }
 }

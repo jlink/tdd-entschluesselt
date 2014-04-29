@@ -12,8 +12,8 @@ class ReplacementCipherTest {
 
     @Test
     void replaceSingleMappedCharacterEverywhere() {
-        def cipher = new ReplacementCipher(['a': 'A'])
-        assert cipher.encrypt('a') == 'A'
-        assert cipher.encrypt('aaa') == 'AAA'
+        def cipher = new ReplacementCipher(['z': 'X'])
+        assert cipher.encrypt('z') == 'X'
+        assert cipher.encrypt('zzz') == 'XXX'
     }
 }
