@@ -13,16 +13,16 @@ switch (command.toLowerCase()) {
     case "newscenario":
         newScenario(cwd, args)
         return
-    case "ps":
+    case "push":
     case "pushstep":
         pushStep(cwd, args)
         return
     case "sc":
+    case "set":
     case "setcurrent":
         setCurrent(cwd, args)
         return
-    case "p":
-    case "pc":
+    case "pull":
     case "pullCurrent":
         pullCurrent(cwd, args)
         return
@@ -132,7 +132,12 @@ def listScenarios(File cwd, args) {
         def name = file.name
         def scenario = [name: name]
         def current = currentScenarioAndStep(cwd)
-        scenario.steps = stepsDir(file).list().sort { it.toInteger() }
+        scenario.steps = stepsDir(file).list().sort {
+            if (it.isNumber())
+                return it.toInteger()
+            else
+                return it
+        }
         scenario.isCurrent = (current.scenario == name)
         if (scenario.isCurrent && current.step)
             scenario.currentStep = current.step
