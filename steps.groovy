@@ -10,6 +10,7 @@ switch (command.toLowerCase()) {
         listScenarios(cwd, args)
         return
     case "ns":
+    case "new":
     case "newscenario":
         newScenario(cwd, args)
         return
