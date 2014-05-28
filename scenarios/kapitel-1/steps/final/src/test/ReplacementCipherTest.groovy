@@ -1,7 +1,7 @@
+import groovy.transform.TypeChecked
 import org.junit.Test
-import groovy.transform.CompileStatic
 
-@CompileStatic
+@TypeChecked
 class ReplacementCipherTest {
 
     @Test
