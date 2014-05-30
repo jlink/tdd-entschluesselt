@@ -1,4 +1,4 @@
-Testfälle:
+Testideen:
 - Leeren Text verschlüsseln
 - Einen Buchstaben verschlüsseln
 - Mehrere unterschiedliche Buchstaben verschlüsseln

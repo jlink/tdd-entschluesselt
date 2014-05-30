@@ -1,6 +1,6 @@
 import groovy.transform.TypeChecked
 
 @TypeChecked
-class MonoalphabeticSubstitutionCipher {
+class ReplacementCipher {
     String encrypt(String cleartext) {}
 }

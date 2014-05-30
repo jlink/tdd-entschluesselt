@@ -49,16 +49,6 @@ def pullCurrent(File cwd, args) {
     copyOver(stepToPullDir, currentDir(cwd))
 }
 
-private copyOver(File from, File to) {
-    to.eachDir { it.deleteDir() };
-    to.eachFile { it.delete() }
-    new AntBuilder().copy(todir: to) {
-        fileset(dir: from)
-    }
-
-
-}
-
 def setCurrent(File cwd, args) {
     def scenarioName = args[0]
     def step = args[1] ?: "0"
@@ -118,6 +108,7 @@ def newScenario(File cwd, args) {
     stepsDir.mkdirs()
     def initialStep = "0"
     writeCurrentScenario(cwd, scenarioName, initialStep)
+    deleteCurrentContents(currentDir(cwd))
     println("Created scenario '$scenarioName' in $scenariosDir.canonicalPath.\"")
 }
 
@@ -184,4 +175,24 @@ def writeCurrentScenario(File cwd, String scenario, String step) {
         writer.println(step)
     }
 
+}
+
+private copyOver(File from, File to) {
+    deleteDirContents(to)
+    new AntBuilder().copy(todir: to) {
+        fileset(dir: from)
+    }
+
+
+}
+
+private void deleteDirContents(File to) {
+    to.eachDir { it.deleteDir() };
+    to.eachFile { it.delete() }
+}
+
+
+private deleteCurrentContents(File currentDir) {
+    deleteDirContents(new File("src/main"))
+    deleteDirContents(new File("src/test"))
 }
