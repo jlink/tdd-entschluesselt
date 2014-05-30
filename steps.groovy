@@ -193,6 +193,6 @@ private void deleteDirContents(File to) {
 
 
 private deleteCurrentContents(File currentDir) {
-    deleteDirContents(new File("src/main"))
-    deleteDirContents(new File("src/test"))
+    deleteDirContents(new File(currentDir, "src/main"))
+    deleteDirContents(new File(currentDir, "src/test"))
 }
