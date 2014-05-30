@@ -20,6 +20,7 @@ public class HumanBeing {
 
     public static void main(String[] args) {
         HumanBeing son = new HumanBeing("Jannek");
+        son.setName("Niklas");
         DoWithName code = new DoWithName() {
             @Override
             public String withName(String name) {
