@@ -1,8 +1,10 @@
 Testideen:
 - Leeren Text verschlüsseln
-- Einen Buchstaben verschlüsseln
-- Mehrere unterschiedliche Buchstaben verschlüsseln
-- Gleiche Buchstaben mehrfach verschlüsseln
-- Leerzeichen erhalten
-- Umgang mit Leerzeichen konfigurierbar
+- Einen Buchstaben verschlüsseln mit Key der Länge 1
+- Ein Wort verschlüsseln mit Key der Länge 1
+- Mehrere Wörter verschlüsseln mit Key der Länge 1
+- Text verschlüsseln mit Key der Länge 2
+- Langen Text mit langem Key verschlüsseln
+- Übersetze Codewörter in Keys
 - Entschlüsselung von Texten
+- Anderes Alphabet benutzen

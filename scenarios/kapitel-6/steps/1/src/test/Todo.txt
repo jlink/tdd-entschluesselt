@@ -1,8 +1,0 @@
-Testideen:
-> Leeren Text verschlüsseln
-- Einen Buchstaben verschlüsseln
-- Mehrere unterschiedliche Buchstaben verschlüsseln
-- Gleiche Buchstaben mehrfach verschlüsseln
-- Leerzeichen erhalten
-- Umgang mit Leerzeichen konfigurierbar
-- Entschlüsselung von Texten
