@@ -1,4 +1,4 @@
-Testideen:
+Todo für ColumnarTranspositionCipher
 - Leeren Text verschlüsseln
 - Einen Buchstaben verschlüsseln mit Key der Länge 1
 - Ein Wort verschlüsseln mit Key der Länge 1
