@@ -1,0 +1,22 @@
+Todo für ColumnarTranspositionCipher
++ Leeren Text verschlüsseln
++ Ein Wort verschlüsseln mit Key der Länge 1
++ Alle 26 Buchstaben sind erlaubt
++ Mehrere Wörter verschlüsseln mit Key der Länge 1
++ Text verschlüsseln mit Key der Länge 2 nicht permutiert
++ Text verschlüsseln mit Key der Länge 2 permutiert
++ Textlänge kein Vielfaches der Schlüssellänge
++ Text mit Key der Länge 5
+
+Todo für ColumnarTranspositionDecryptor
++ Text mit Key der Länge 1
++ Text mit Key der Länge 2 nicht permutiert
++ Text mit Key der Länge 2 permutiert
++ Text mit Key der Länge 5
++ Textlänge kein Vielfaches der Schlüssellänge
+
+- Remove duplication in Decryptor and Encryptor
+- Access en- / decoder through Cipher class
+- Check correct keys
+- Übersetze Codewörter in Keys
+- Anderes Alphabet benutzen
