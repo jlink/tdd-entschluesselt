@@ -6,8 +6,8 @@ class ColumnarTranspositionEncryptor {
 
     @Requires({
         key.size() > 1
-        key.keySet() == (0..key.size() - 1).toSet()
-        key.values().toSet() == (0..key.size() - 1).toSet()
+        key.keySet() == (1..key.size()).toSet()
+        key.values().toSet() == (1..key.size()).toSet()
     })
     ColumnarTranspositionEncryptor(Map<Integer, Integer> key) {
         this.key = key
@@ -19,11 +19,21 @@ class ColumnarTranspositionEncryptor {
         blocks = createColumns(blocks)
         blocks = orderByKey(blocks)
 
-        return blocks.flatten().join('')
+        def chars = flattenedChars(blocks)
+        chars = removeNulls(chars)
+        return chars.join('')
+    }
+
+    private ArrayList<Object> removeNulls(ArrayList<Object> chars) {
+        chars.findAll { it != null }
+    }
+
+    private ArrayList<Object> flattenedChars(List blocks) {
+        blocks.flatten()
     }
 
     private List orderByKey(List blocks) {
-        if (key[0] == 1)
+        if (key[1] != 1)
             return blocks.reverse()
         else
             return blocks
@@ -34,6 +44,8 @@ class ColumnarTranspositionEncryptor {
     }
 
     private List<List<String>> splitInBlocks(List<String> allChars) {
+        if (allChars.size() % key.size() != 0)
+            allChars.add(null)
         allChars.collate(key.size())
     }
 }

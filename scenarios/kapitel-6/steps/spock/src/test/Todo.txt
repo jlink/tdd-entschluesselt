@@ -4,8 +4,9 @@ Encryption
 - Leeren Text
 + Key der Länge 2
 + Key nicht permutiert
-- Text ist nicht durch Key-Länge teilbar
-- Key der Länge 3
++ Text ist nicht durch Key-Länge 2 teilbar
+- Key der Länge 3 permutiert
+- Text nicht durch 3 teilbar
 - Schlüssel länger als Text
 - Langen Text mit langem Key verschlüsseln
 
