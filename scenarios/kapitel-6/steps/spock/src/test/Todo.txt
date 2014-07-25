@@ -1,0 +1,22 @@
+Todos für ColumnarTranspositionCipher
+
+Encryption
+- Leeren Text
+- Key der Länge 1
+- Key der Länge 3
+- Schlüssel länger als Text
+- Langen Text mit langem Key verschlüsseln
+
+Decryption
+- Gleiche Beispiele wie Encryption
+
+Cipher-Klasse
+- Zugang von En-/Decryptor über Cipher-Klasse
+- Übersetze Codewörter in Keys
+
+Weiteres
+- Anderes Alphabet benutzen
+- Definiertes Verhalten bei nicht erlaubten Texten oder Schlüsseln
+- Text mit Leerzeichen -> Ignorieren
+- Verschlüsselung von Binärdaten
+
