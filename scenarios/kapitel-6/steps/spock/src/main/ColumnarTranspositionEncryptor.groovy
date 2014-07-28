@@ -33,10 +33,11 @@ class ColumnarTranspositionEncryptor {
     }
 
     private List orderByKey(List blocks) {
-        if (key[1] != 1)
-            return blocks.reverse()
-        else
-            return blocks
+        List orderedBlocks = []
+        blocks.eachWithIndex {block, index ->
+            orderedBlocks[key[index + 1] - 1] = block
+        }
+        return orderedBlocks
     }
 
     private List createColumns(List<List<String>> blocks) {

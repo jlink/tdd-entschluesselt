@@ -5,7 +5,7 @@ Encryption
 + Key der Länge 2
 + Key nicht permutiert
 + Text ist nicht durch Key-Länge 2 teilbar
-- Key der Länge 3 permutiert
++ Key der Länge 3
 - Text nicht durch 3 teilbar
 - Schlüssel länger als Text
 - Langen Text mit langem Key verschlüsseln
@@ -18,8 +18,8 @@ Cipher-Klasse
 - Übersetze Codewörter in Keys
 
 Weiteres
-- Anderes Alphabet benutzen
+- Leerzeichen im Text ignorieren
+- Alphabet und Whitespace konfigurierbar machen
 - Definiertes Verhalten bei nicht erlaubten Texten oder Schlüsseln
-- Text mit Leerzeichen -> Ignorieren
 - Verschlüsselung von Binärdaten
 

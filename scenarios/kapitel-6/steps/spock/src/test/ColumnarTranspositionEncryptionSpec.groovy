@@ -29,6 +29,15 @@ class ColumnarTranspositionEncryptionSpec extends Specification {
             [1: 2, 2: 1]| '12345'   | '24135'
     }
 
+    def "encrypt with key length of 3"() {
+        expect:
+            createEncryptor(key).encrypt(clearText) == cryptText
+        where:
+            key         | clearText | cryptText
+            [1: 1, 2: 2, 3:3]| 'abcdefghi'   | 'adgbehcfi'
+            [1: 2, 2: 3, 3:1]| '123456789'   | '369147258'
+    }
+
     private ColumnarTranspositionEncryptor createEncryptor(Map<Integer, Integer> key) {
         new ColumnarTranspositionEncryptor(key)
     }
