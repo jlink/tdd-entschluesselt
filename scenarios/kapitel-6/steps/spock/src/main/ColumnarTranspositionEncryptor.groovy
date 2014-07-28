@@ -34,7 +34,7 @@ class ColumnarTranspositionEncryptor {
 
     private List orderByKey(List blocks) {
         List orderedBlocks = []
-        blocks.eachWithIndex {block, index ->
+        blocks.eachWithIndex { block, index ->
             orderedBlocks[key[index + 1] - 1] = block
         }
         return orderedBlocks
@@ -45,8 +45,10 @@ class ColumnarTranspositionEncryptor {
     }
 
     private List<List<String>> splitInBlocks(List<String> allChars) {
-        if (allChars.size() % key.size() != 0)
-            allChars.add(null)
+        int missingChars = key.size() - allChars.size() % key.size()
+        if (missingChars != 0) {
+            missingChars.times { allChars.add(null) }
+        }
         allChars.collate(key.size())
     }
 }
