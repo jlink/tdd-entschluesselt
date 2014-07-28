@@ -11,7 +11,14 @@ Encryption
 + Langen Text mit langem Key verschlüsseln
 
 Decryption
-- Gleiche Beispiele wie Encryption
++ Leeren Text
++ Key der Länge 2 nicht permutiert
+- Key der Länge 2 permutiert
+- Text ist nicht durch Key-Länge 2 teilbar
+- Key der Länge 3
+- Text nicht durch 3 teilbar
+- Schlüssel länger als Text
+- Langen Text mit langem Key verschlüsseln
 
 Cipher-Klasse
 - Zugang von En-/Decryptor über Cipher-Klasse
