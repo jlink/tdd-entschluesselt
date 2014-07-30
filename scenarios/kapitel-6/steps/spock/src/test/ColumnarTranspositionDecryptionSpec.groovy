@@ -27,7 +27,6 @@ class ColumnarTranspositionDecryptionSpec extends Specification {
     }
 
 
-    @Ignore
     def "text when key does not fit in"() {
         expect:
             createDecryptor(key).decrypt(cryptText) == clearText
@@ -37,39 +36,37 @@ class ColumnarTranspositionDecryptionSpec extends Specification {
             [1: 2, 2: 1] | '24135'   | '12345'
     }
 
-    /*
-    private def "key does not fit in text with more than 1"() {
+    def "key does not fit in text with more than 1"() {
         expect:
-            createDecryptor(key).decrypt(clearText) == cryptText
+            createDecryptor(key).decrypt(cryptText) == clearText
         where:
-            key         | clearText | cryptText
-            [1: 1, 2: 2, 3:3]| 'abcdefg'   | 'adgbecf'
+            key               | cryptText | clearText
+            [1: 1, 2: 2, 3:3] | 'adgbecf' | 'abcdefg'
     }
 
-    private def "encrypt with key length of 3"() {
+    def "encrypt with key length of 3"() {
         expect:
-            createDecryptor(key).decrypt(clearText) == cryptText
+            createDecryptor(key).decrypt(cryptText) ==  clearText
         where:
-            key         | clearText | cryptText
-            [1: 1, 2: 2, 3:3]| 'abcdefghi'   | 'adgbehcfi'
-            [1: 2, 2: 3, 3:1]| '123456789'   | '369147258'
+            key              | cryptText    | clearText
+            [1: 1, 2: 2, 3:3]| 'adgbehcfi'  | 'abcdefghi'
+            [1: 2, 2: 3, 3:1]| '369147258'  | '123456789'
     }
 
-    private def "encrypt with key longer than text"() {
+    def "encrypt with key longer than text"() {
         expect:
             createDecryptor([1: 1, 2: 2, 3: 3]).decrypt('ab') == 'ab'
     }
 
-    private def "encrypt longer text with longer key"() {
+    def "encrypt longer text with longer key"() {
         when:
             def key = [1: 5, 2: 2, 3: 3, 4: 4, 5: 1, 6: 6]
             def encryptor = createDecryptor(key)
         then:
-            encryptor.decrypt('dieschlachtbeginntbeimorgengrauen') ==
-                    'CTNORIAGEEEECIINNSHNMGDLEBGUHBTRA'.toLowerCase()
+            encryptor.decrypt('CTNORIAGEEEECIINNSHNMGDLEBGUHBTRA'.toLowerCase()) ==
+                    'dieschlachtbeginntbeimorgengrauen'
 
     }
-    */
 
     private ColumnarTranspositionDecryptor createDecryptor(Map<Integer, Integer> key) {
         new ColumnarTranspositionDecryptor(key)
