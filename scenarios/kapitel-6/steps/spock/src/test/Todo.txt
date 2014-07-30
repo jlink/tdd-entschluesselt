@@ -10,10 +10,15 @@ Encryption
 + Schlüssel länger als Text
 + Langen Text mit langem Key verschlüsseln
 
+Blocks
+- Split items size divisible by key length
+- Split items size not divisible by key length but no permutation
+- Split items size not divisible by key length with permutation
+
 Decryption
 + Leeren Text
 + Key der Länge 2 nicht permutiert
-- Key der Länge 2 permutiert
++ Key der Länge 2 permutiert
 - Text ist nicht durch Key-Länge 2 teilbar
 - Key der Länge 3
 - Text nicht durch 3 teilbar

@@ -15,9 +15,18 @@ class ColumnarTranspositionDecryptor {
     String decrypt(String cryptText) {
         def allChars = cryptText.toList()
         def blocks = splitInBlocks(allChars)
+        blocks = orderByKey(blocks)
         def columns = createColumns(blocks)
         def chars = columns.flatten()
         return chars.join('')
+    }
+
+    List<List<String>> orderByKey(List<List<String>> blocks) {
+        List orderedBlocks = []
+        blocks.eachWithIndex{ block , index ->
+            orderedBlocks[key[index + 1] - 1] = block
+        }
+        orderedBlocks
     }
 
     private createColumns(List<List<String>> blocks) {
@@ -25,7 +34,9 @@ class ColumnarTranspositionDecryptor {
     }
 
     private splitInBlocks(List<String> allChars) {
-        int lengthOfBlocks = allChars.size() / key.size()
-        allChars.collate(lengthOfBlocks)
+        def blocks = Blocks.splitInBlocks(allChars, key)
+        if (allChars[0] == 'z')
+            assert blocks == [['z', 'c', 'e'], ['b', 'd', null]]
+        blocks
     }
 }

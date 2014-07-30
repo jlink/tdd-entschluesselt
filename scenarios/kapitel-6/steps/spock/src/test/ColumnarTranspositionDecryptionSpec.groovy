@@ -1,3 +1,4 @@
+import spock.lang.Ignore
 import spock.lang.Specification
 
 class ColumnarTranspositionDecryptionSpec extends Specification {
@@ -11,28 +12,37 @@ class ColumnarTranspositionDecryptionSpec extends Specification {
         expect:
             createDecryptor([1: 1, 2: 2]).decrypt(cryptText) == clearText
         where:
-            clearText | cryptText
-            'abcdef'  | 'acebdf'
-            '123456'  | '135246'
+            cryptText | clearText
+            'acebdf'  | 'abcdef'
+            '135246'  | '123456'
+    }
+
+    def "text of length 6 with permuted key of length 2"() {
+        expect:
+            createDecryptor([1: 2, 2: 1]).decrypt(cryptText) == clearText
+        where:
+            cryptText | clearText
+            'bdface'  | 'abcdef'
+            '246135'  | '123456'
+    }
+
+
+    @Ignore
+    def "text when key does not fit in"() {
+        expect:
+            createDecryptor(key).decrypt(cryptText) == clearText
+        where:
+            key          | cryptText | clearText
+            [1: 1, 2: 2] | 'zcebd'   | 'zbcde'
+            [1: 2, 2: 1] | '24135'   | '12345'
     }
 
     /*
-    private def "encrypt text of length 6 with permuted key of length 2"() {
-        expect:
-            createDecryptor([1: 2, 2: 1]).decrypt(clearText) == cryptText
-        where:
-            clearText | cryptText
-            'abcdef'  | 'bdface'
-            '123456'  | '246135'
-    }
-
-    private def "encrypt text when key does not fit in"() {
+    private def "key does not fit in text with more than 1"() {
         expect:
             createDecryptor(key).decrypt(clearText) == cryptText
         where:
             key         | clearText | cryptText
-            [1: 1, 2: 2]| 'abcde'   | 'acebd'
-            [1: 2, 2: 1]| '12345'   | '24135'
             [1: 1, 2: 2, 3:3]| 'abcdefg'   | 'adgbecf'
     }
 
