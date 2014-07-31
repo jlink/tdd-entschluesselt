@@ -26,8 +26,8 @@ Decryption
 + Langen Text mit langem Key verschlüsseln
 
 Cipher-Klasse
-- Zugang von En-/Decryptor über Cipher-Klasse
-- Übersetze Codewörter in Keys
++ Zugang von En-/Decryptor über Cipher-Klasse
++ Übersetze Codewörter in Keys
 
 Weiteres
 - Leerzeichen im Text ignorieren

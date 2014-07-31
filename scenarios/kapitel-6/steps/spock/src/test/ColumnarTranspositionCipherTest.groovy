@@ -33,9 +33,11 @@ class ColumnarTranspositionCipherTest extends Specification {
         and:
             cipher.createEncryptor(keyWord).key == key
         where:
-            keyWord | key
-            'ab'    | [1:1, 2:2]
-            'abc'    | [1:1, 2:2, 3:3]
+            keyWord     | key
+            'ab'        | [1:1, 2:2]
+            'abc'       | [1:1, 2:2, 3:3]
+            'ba'        | [1:2, 2:1]
+            'niklas'    | [1: 5, 2: 2, 3: 3, 4: 4, 5: 1, 6: 6]
     }
 
 }
