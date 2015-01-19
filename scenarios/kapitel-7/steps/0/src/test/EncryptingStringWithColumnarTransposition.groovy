@@ -1,6 +1,6 @@
 import org.junit.Test
 
-class ColumnarTranspositionEncryption {
+class EncryptingStringWithColumnarTransposition {
     @Test
     void failingTest() {
         assert false
