@@ -1,3 +1,3 @@
 class TranspositionKey {
-    static TranspositionKey anyOfLength(int i) {}
+    static TranspositionKey any() {}
 }

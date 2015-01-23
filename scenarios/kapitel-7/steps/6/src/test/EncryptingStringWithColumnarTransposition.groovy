@@ -5,7 +5,7 @@ import org.junit.Test
 class EncryptingStringWithColumnarTransposition {
     @Test
     void stringOfLength1RemainsUnchanged() {
-        def anyKey = TranspositionKey.anyOfLength(2)
+        def anyKey = TranspositionKey.any()
         ColumnarTranspositionEncryptor encryptor = new ColumnarTranspositionEncryptor(anyKey)
         assert encryptor.encrypt("a") == "a"
         assert encryptor.encrypt("b") == "b"
@@ -13,7 +13,7 @@ class EncryptingStringWithColumnarTransposition {
 
     @Test
     void simpleTranspositionSwapsTwoLetters() {
-        def swappingKey = TranspositionKey.with(1:2, 2:1)
+        def swappingKey = new TranspositionKey([1:2, 2:1])
         ColumnarTranspositionEncryptor encryptor = new ColumnarTranspositionEncryptor(swappingKey)
         assert encryptor.encrypt("ab") == "ba"
     }

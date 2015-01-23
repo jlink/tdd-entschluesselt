@@ -3,7 +3,7 @@ import org.gcontracts.annotations.Requires
 
 @CompileStatic
 class TranspositionKey {
-    static TranspositionKey anyOfLength(int length) {
+    static TranspositionKey any() {
         return new TranspositionKey()
     }
 
