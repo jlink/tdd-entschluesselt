@@ -11,10 +11,6 @@ class TranspositionKey {
         this.@transposition = transposition
     }
 
-    int size() {
-        return transposition.size()
-    }
-
     List transpose(List letters) {
         return letters.reverse()
     }
