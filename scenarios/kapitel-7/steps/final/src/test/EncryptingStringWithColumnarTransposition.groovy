@@ -1,5 +1,7 @@
+import groovy.transform.CompileStatic
 import org.junit.Test
 
+@CompileStatic
 class EncryptingStringWithColumnarTransposition {
     @Test
     void stringOfLength1RemainsUnchanged() {

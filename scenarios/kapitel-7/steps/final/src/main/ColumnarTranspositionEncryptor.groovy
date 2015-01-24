@@ -1,5 +1,7 @@
+import groovy.transform.CompileStatic
 import org.gcontracts.annotations.Requires
 
+@CompileStatic
 class ColumnarTranspositionEncryptor {
     @Requires({ key instanceof TranspositionKey })
     ColumnarTranspositionEncryptor(key) {
