@@ -4,7 +4,7 @@ import org.gcontracts.annotations.Requires
 @CompileStatic
 class TranspositionKey {
 
-    private Map transposition
+    private final Map transposition
 
     @Requires({ allPositionsOnBothSides(transposition) })
     TranspositionKey(Map transposition) {

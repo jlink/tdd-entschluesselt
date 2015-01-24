@@ -4,7 +4,7 @@ import org.gcontracts.annotations.Requires
 @CompileStatic
 class ColumnarTranspositionEncryptor {
 
-    private TranspositionKey key
+    private final TranspositionKey key
 
     @Requires({ key instanceof TranspositionKey })
     ColumnarTranspositionEncryptor(TranspositionKey key) {
