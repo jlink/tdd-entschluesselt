@@ -47,7 +47,7 @@ class EncryptingStringWithColumnarTransposition {
         def key = new TranspositionKey(0: 1, 1: 2, 2: 0)
         ColumnarTranspositionEncryptor encryptor =
                 new ColumnarTranspositionEncryptor(key)
-        assert encryptor.encrypt("abcdefghi") == "gadhbeicf"
+        assert encryptor.encrypt("abcdefghi") == "cfiadgbeh"
     }
 
 }
