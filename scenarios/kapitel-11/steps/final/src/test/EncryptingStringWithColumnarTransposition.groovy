@@ -34,7 +34,7 @@ class EncryptingStringWithColumnarTransposition {
     }
 
     @Test
-    void transposeAnyObjectListWithTranspositionKey() {
+    void transpositionKeyCanTransposeAnyList() {
         def key = new TranspositionKey(0: 1, 1: 2, 2: 0)
         assert key.transpose([1, 2, 3]) == [3, 1, 2]
     }
