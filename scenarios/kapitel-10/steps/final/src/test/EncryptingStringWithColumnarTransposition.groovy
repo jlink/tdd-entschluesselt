@@ -32,7 +32,7 @@ class EncryptingStringWithColumnarTransposition {
     }
 
     @Test
-    void columnarTranspositionWithNTimesTheKeyLength() {
+    void multirowTranspositionWithTrivialKey() {
         def nonSwappingKey = new TranspositionKey(0:0, 1:1, 2:2)
         ColumnarTranspositionEncryptor encryptor = new ColumnarTranspositionEncryptor(nonSwappingKey)
         assert encryptor.encrypt("abcxyz") == "axbycz"
