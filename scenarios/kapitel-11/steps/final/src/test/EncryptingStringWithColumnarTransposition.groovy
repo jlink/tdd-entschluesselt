@@ -6,8 +6,7 @@ class EncryptingStringWithColumnarTransposition {
     @Test
     void stringOfLength1RemainsUnchanged() {
         def anyKey = new TranspositionKey(0: 0)
-        ColumnarTranspositionEncryptor encryptor =
-                new ColumnarTranspositionEncryptor(anyKey)
+        def encryptor = new ColumnarTranspositionEncryptor(anyKey)
         assert encryptor.encrypt("a") == "a"
         assert encryptor.encrypt("b") == "b"
     }
@@ -15,8 +14,7 @@ class EncryptingStringWithColumnarTransposition {
     @Test
     void simpleTranspositionSwapsTwoLetters() {
         def swappingKey = new TranspositionKey(0: 1, 1: 0)
-        ColumnarTranspositionEncryptor encryptor =
-                new ColumnarTranspositionEncryptor(swappingKey)
+        def encryptor = new ColumnarTranspositionEncryptor(swappingKey)
         assert encryptor.encrypt("ab") == "ba"
         assert encryptor.encrypt("xy") == "yx"
     }
@@ -42,8 +40,7 @@ class EncryptingStringWithColumnarTransposition {
     @Test
     void multirowTranspositionWithTrivialKey() {
         def nonSwappingKey = new TranspositionKey(0: 0, 1: 1, 2: 2)
-        ColumnarTranspositionEncryptor encryptor =
-                new ColumnarTranspositionEncryptor(nonSwappingKey)
+        def encryptor = new ColumnarTranspositionEncryptor(nonSwappingKey)
         assert encryptor.encrypt("abcxyz") == "axbycz"
         assert encryptor.encrypt("abcdefghi") == "adgbehcfi"
     }
@@ -51,8 +48,7 @@ class EncryptingStringWithColumnarTransposition {
     @Test
     void multirowTranspositionWithNonTrivialKey() {
         def key = new TranspositionKey(0: 1, 1: 2, 2: 0)
-        ColumnarTranspositionEncryptor encryptor =
-                new ColumnarTranspositionEncryptor(key)
+        def encryptor = new ColumnarTranspositionEncryptor(key)
         assert encryptor.encrypt("abcdefghi") == "cfiadgbeh"
     }
 
