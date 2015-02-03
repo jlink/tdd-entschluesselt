@@ -11,6 +11,7 @@ class TranspositionKey {
         this.@transposition = transposition
     }
 
+    @Requires({letters.size() <= transposition.size()})
     List transpose(List letters) {
         return letters.reverse()
     }
