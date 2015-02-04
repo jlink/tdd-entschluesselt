@@ -18,7 +18,7 @@ class TranspositionKey {
     })
     List transpose(List elements) {
         List result = []
-        for (i in 0..size() - 1)
+        for (i in 0..<size())
             result[transposition[i]] = elements[i]
         result.removeAll([null])
         return result
@@ -33,7 +33,7 @@ class TranspositionKey {
     }
 
     private static boolean allPositionsOnBothSides(Map transposition) {
-        Set allPositions = 0..(transposition.size() - 1) as Set
+        Set allPositions = 0..<transposition.size() as Set
         return (transposition.keySet() == allPositions) &&
                 (transposition.values() as Set == allPositions)
     }
