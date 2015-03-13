@@ -32,16 +32,18 @@ class ColumnarTranspositionEncryptor {
         return columns
     }
 
+    private void removeAllNulls(List<List> columns) {
+        for (List column in columns) {
+            column.removeAll([null])
+        }
+    }
+
     private void fillUpShortRowsWithNulls(List<List> rows) {
-        rows.each { row ->
+        for (List row in rows) {
             def diff = key.size() - row.size()
             if (diff > 0)
                 diff.times { row.add(null) }
         }
-    }
-
-    private void removeAllNulls(List<List> columns) {
-        columns.each {it.removeAll([null])}
     }
 
     private List flattenNestedLists(List<List> columns) {
