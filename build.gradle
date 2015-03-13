@@ -6,7 +6,7 @@ repositories {
 }
 
 dependencies {
-    compile 'org.codehaus.groovy:groovy-all:2.3.9'
+    compile 'org.codehaus.groovy:groovy-all:2.4.1'
     compile 'org.gcontracts:gcontracts-core:1.2.12'
     testCompile 'junit:junit:4.12'
     testCompile 'org.spockframework:spock-core:0.7-groovy-2.0'
